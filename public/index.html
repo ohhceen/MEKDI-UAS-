@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mekdi App Link</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; background-color: #f8f9fa; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: 0 auto; }
+        h1 { color: #d32f2f; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; }
+        .btn { display: block; width: 100%; padding: 15px 0; margin-bottom: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; }
+        .btn-primary { background-color: #d32f2f; color: white; } /* Merah Mekdi */
+        .btn-secondary { background-color: #e0e0e0; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Mekdi App</h1>
+        <p id="pesan">Membuka menu spesial untukmu...</p>
+
+        <a id="btn-open" href="#" class="btn btn-primary">
+            Buka di Aplikasi
+        </a>
+
+        <a href="/mekdi.apk" class="btn btn-secondary">
+            Belum punya? Download APK
+        </a>
+    </div>
+
+    <script>
+        // LOGIC PINTAR (JAVASCRIPT)
+        
+        // 1. Ambil ID dari URL Website (misal: .../detail?id=5)
+        const params = new URLSearchParams(window.location.search);
+        const idProduk = params.get('id');
+
+        // 2. Siapkan Link Scheme (mekdi://...)
+        const btnOpen = document.getElementById('btn-open');
+        const textPesan = document.getElementById('pesan');
+
+        if (idProduk) {
+            // Jika ada ID, arahkan tombol ke produk spesifik
+            // Contoh hasil: mekdi://detail?id=5
+            const deepLink = `mekdi://detail?id=${idProduk}`;
+            
+            btnOpen.href = deepLink;
+            textPesan.innerText = `Menu ID #${idProduk} ditemukan!`;
+            
+            // Opsional: Coba otomatis buka app setelah 1 detik
+            setTimeout(() => {
+                window.location.href = deepLink;
+            }, 1000);
+
+        } else {
+            // Jika tidak ada ID, buka halaman home saja
+            btnOpen.href = "mekdi://";
+            textPesan.innerText = "Silakan buka aplikasi untuk memesan.";
+        }
+    </script>
+</body>
+</html>
